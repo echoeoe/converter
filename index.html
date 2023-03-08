@@ -8,10 +8,20 @@ body {background-color: white;}
 h1   {color: darkslategrey;}
 p    {color: darkslategrey;}
 </style>
+
+<script src="converter.js"></script>
+
 </head>
 
 <body>
-<h1>Hello!</h1>
+<h1>Unit Converter</h1>
+
+<h2>cm & inches</h2>
+<input type="text" id="cmTfield" name="cmTf" onkeyup="cmToInches()">
+<label for = "cmTfield">cm</label><br><br>
+
+<input type="text" id="inTfield" name="inTfield" onkeyup="inchesToCm()">
+<label for = "cmTf">inches</label><br>
   
 </body>
 
