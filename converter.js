@@ -1,19 +1,15 @@
-function cmToInches(){
-    var cm = document.getElementById('cmTfield').value;
-    
-    //convert to inches
-    var inches = cm * 0.393701;
-
-    //change inches text field to var inches
-    document.getElementById('inTfield').value = inches;
+function cmToIn(cm){
+    //in cm, out inches
+    var inches = cm / 2.54;
+    return inches;
 }
 
-function inchesToCm(){
-    var inches = document.getElementById('inTfield').value;
+//event listener CM KEYUP
+document.getElementById('cmTfield').addEventListener("keyup", fromCm);
 
-    //calculate cm 
-    var cm = inches * 2.54;
-
-    //change text field
-    document.getElementById('cmTfield').value = cm;
+function fromCm(){ 
+    //in cm, out inches 
+    var cm = document.getElementById('cmTfield').value; //in display cm
+    var inches = cmToIn(cm); //method calculate
+    document.getElementById('inTfield').value = inches; //out display in
 }
