@@ -9,21 +9,19 @@ function inToCm(inches){
 }
 
 //event listener CM KEYUP
-document.getElementById('cmTfield').addEventListener("keyup", fromCm);
+document.getElementById('cmInp').addEventListener("keyup", fromCm);
 
 function fromCm(){ //cm input => display change 
-    var cm = document.getElementById('cmTfield').value; //in display cm
+    var cm = document.getElementById('cmInp').value; //in display cm
     var inches = cmToIn(cm); //method calculate
-    document.getElementById('inTfield').value = inches; //out display in
+    document.getElementById('inchInp').value = inches; //out display in
 }
 
-//event listener IN KEYUP
-document.getElementById('inTfield').addEventListener("keyup", fromIn);
+//event listener INCH KEYUP
+document.getElementById('inchInp').addEventListener("keyup", fromIn);
 
 function fromIn(){ //inches input => display change
-    var inches = document.getElementById('inTfield').value;
+    var inches = document.getElementById('inchInp').value;
     var cm = inToCm(inches); 
-    document.getElementById('cmTfield').value = cm; 
+    document.getElementById('cmInp').value = cm; 
 }
-
-exports = {cmToIn, inToCm};
