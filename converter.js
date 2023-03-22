@@ -9,13 +9,13 @@ function inToCm(inches){
     return cm;
 }
 
-function mToFt(m){
-    var ft = m * 3.280839895;
+function mToFt(m){ 
+    var ft = m / .3048; 
     return ft;
 }
 
 function feetToMeter(feet){
-    var meter = feet * 0.3048006096;
+    var meter = feet * 0.3048; 
     return meter;
 }
 
