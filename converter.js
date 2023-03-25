@@ -19,38 +19,36 @@ function feetToMeter(feet){
     return meter;
 }
 
-//event listener CM KEYUP
-document.getElementById('cmInp').addEventListener("keyup", fromCm);
+//IDs of inputs 
+var inpArr = ['cmInp', 'inchInp', 'meterInp', 'feetInp']; //1d
 
-function fromCm(){ //cm input => display change 
-    var cm = document.getElementById('cmInp').value; //in display cm
-    var inches = cmToIn(cm); //method calculate
-    document.getElementById('inchInp').value = inches; //out display in
+//event listeners
+for (let i = 0; i<inpArr.length; i++){
+    document.getElementById(inpArr[i]).addEventListener("keyup", fromAny);    
 }
 
-//event listener INCH KEYUP
-document.getElementById('inchInp').addEventListener("keyup", fromIn);
-
-function fromIn(){ //inches input => display change
-    var inches = document.getElementById('inchInp').value;
-    var cm = inToCm(inches); 
-    document.getElementById('cmInp').value = cm; 
-}
-
-//event listener METER KEYUP
-document.getElementById('meterInp').addEventListener("keyup", fromM);
-
-function fromM(){
-    var m = document.getElementById('meterInp').value;
-    var ft = mToFt(m);
-    document.getElementById('feetInp').value = ft;
-}
-
-//event listener FEET KEYUP
-document.getElementById('feetInp').addEventListener("keyup", fromFeet);
-
-function fromFeet(){
-    var ft = document.getElementById('feetInp').value;
-    var m = feetToMeter(ft);
-    document.getElementById('meterInp').value = m;
+function fromAny(){ //triggered on any input's keyup
+    //needed - correlate input field to array of array of functions
+    //var inpArr = ['cmInp', 'inchInp', 'meterInp', 'feetInp']; //1d
+    var funcArr = [['cmToIn'], ['inToCm'], ['mToFt'], ['feetToMeter'] ]; //2d 
+    var outArr = [['inchInp'], ['cmInp'], ['feetInp'], ['meterInp'] ]; //2d
+    
+    var inp = document.getElementById(this.id).value; //get input value 
+    var index = inpArr.indexOf(this.id); //need index
+    var functionCount = funcArr[index].length; //need count of all applicable functions 
+     
+    // use functions applicable
+    if (functionCount == 1){ // if length 1, use first
+        var output = window[funcArr[index][0]](inp);  // calculate
+        document.getElementById(outArr[index][0]).value = output; // set 
+    }
+    else{
+        var funcArrUse = funcArr[index]; //useful functions
+        var outArrUse = outArr[index]; //output locations
+        //var outputArr = new Array(functionCount); //calculated values
+        //calculate, display values
+        for (let i = 0; i<functionCount; i++){
+          document.getElementById(outArrUse[i]).value = window[funcArrUse][i](inp);  
+        }
+    }
 }
