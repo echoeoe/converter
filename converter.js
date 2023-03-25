@@ -32,7 +32,7 @@ for (let i = 0; i<inpArr.length; i++){
 function fromAny(){ //triggered on any input's keyup
     //needed - correlate input field to array of array of functions
     //var inpArr = ['cmInp', 'inchInp', 'meterInp', 'feetInp']; //1d
-    var funcArr = [['cmToIn'], ['inToCm'], ['mToFt'], ['feetToMeter'] ]; //2d 
+    var funcArr = [['cmToIn'], ['inToCm'], ['mToFt'], ['feetToMeter', 'feetToFtIn'] ]; //2d 
     var outArr = [['inchInp'], ['cmInp'], ['feetInp'], ['meterInp'] ]; //2d
     
     var inp = document.getElementById(this.id).value; //get input value 
@@ -40,8 +40,17 @@ function fromAny(){ //triggered on any input's keyup
     var functionCount = funcArr[index].length; //need count of all applicable functions 
     var funcArrUse = funcArr[index]; //useful functions
     var outArrUse = outArr[index]; //output locations
-    
+
     for (let i = 0; i<functionCount; i++){
-        document.getElementById(outArrUse[i]).value = window[funcArrUse[i]](inp);// window[funcArrUse][i](inp);  
+        if (funcArrUse[i] == 'feetToFtIn'){
+            console.log("in");
+            var func = funcArrUse[i];
+            var ftInArr = window[func](inp);
+            document.getElementById('feetInp2').value = ftInArr[0];
+            document.getElementById('inchInp2').value = ftInArr[1];
+        }
+        else{
+            document.getElementById(outArrUse[i]).value = window[funcArrUse[i]](inp);
+        }
     }
 }
