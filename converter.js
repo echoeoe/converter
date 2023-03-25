@@ -1,22 +1,24 @@
 // calculation functions
 function cmToIn(cm){ //in cm, out inches
-    var inches = cm / 2.54;
-    return inches;
+    return inches = cm / 2.54;
 }
 
 function inToCm(inches){
-    var cm = inches * 2.54;
-    return cm;
+    return cm = inches * 2.54;
 }
 
 function mToFt(m){ 
-    var ft = m / .3048; 
-    return ft;
+    return ft = m / .3048;;
 }
 
 function feetToMeter(feet){
-    var meter = feet * 0.3048; 
-    return meter;
+    return meter = feet * 0.3048;
+}
+
+function feetToFtIn(feet){
+    var ft = Math.floor(feet);
+    var inch = (feet - ft) * 12;
+    return [ft, inch];
 }
 
 //IDs of inputs 
@@ -36,19 +38,10 @@ function fromAny(){ //triggered on any input's keyup
     var inp = document.getElementById(this.id).value; //get input value 
     var index = inpArr.indexOf(this.id); //need index
     var functionCount = funcArr[index].length; //need count of all applicable functions 
-     
-    // use functions applicable
-    if (functionCount == 1){ // if length 1, use first
-        var output = window[funcArr[index][0]](inp);  // calculate
-        document.getElementById(outArr[index][0]).value = output; // set 
-    }
-    else{
-        var funcArrUse = funcArr[index]; //useful functions
-        var outArrUse = outArr[index]; //output locations
-        //var outputArr = new Array(functionCount); //calculated values
-        //calculate, display values
-        for (let i = 0; i<functionCount; i++){
-          document.getElementById(outArrUse[i]).value = window[funcArrUse][i](inp);  
-        }
+    var funcArrUse = funcArr[index]; //useful functions
+    var outArrUse = outArr[index]; //output locations
+    
+    for (let i = 0; i<functionCount; i++){
+        document.getElementById(outArrUse[i]).value = window[funcArrUse[i]](inp);// window[funcArrUse][i](inp);  
     }
 }
