@@ -7,9 +7,10 @@ There will be a section for cooking measurements.
 https://echoeoe.github.io/converter
 
 Technologies used:  
-HTML, Javascript (languages)  
+HTML, JavaScript (languages)  
 Jest (testing framework)    
-Nodejs (javascript runtime environment)  
+jsdom (JavaScript implementation of WHATWG DOM and HTML standards) 
+Nodejs (JavaScript runtime environment)  
 npm (package manager)    
 Windows Subsystem for Linux (using Linux on Windows)      
 Ubuntu 22.04.2 LTS (Linux distribution)
