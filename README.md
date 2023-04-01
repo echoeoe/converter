@@ -6,7 +6,7 @@ There will be a section for cooking measurements.
 
 https://echoeoe.github.io/converter
 
-Technologies used: 
+Technologies used:  
 HTML, Javascript (languages)  
 Jest (testing framework)    
 Nodejs (javascript runtime environment)  
