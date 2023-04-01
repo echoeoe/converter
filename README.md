@@ -5,3 +5,11 @@ It will convert input immediately without requiring the user to hit "submit," an
 There will be a section for cooking measurements.
 
 https://echoeoe.github.io/converter
+
+Technologies used: 
+HTML, Javascript (languages)  
+Jest (testing framework)    
+Nodejs (javascript runtime environment)  
+npm (package manager)    
+Windows Subsystem for Linux (using Linux on Windows)      
+Ubuntu 22.04.2 LTS (Linux distribution)
