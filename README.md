@@ -9,7 +9,7 @@ https://echoeoe.github.io/converter
 Technologies used:  
 HTML, JavaScript (languages)  
 Jest (testing framework)    
-jsdom (JavaScript implementation of WHATWG DOM and HTML standards) 
+jsdom (JavaScript implementation of WHATWG DOM and HTML standards)  
 Nodejs (JavaScript runtime environment)  
 npm (package manager)    
 Windows Subsystem for Linux (using Linux on Windows)      
