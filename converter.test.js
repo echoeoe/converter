@@ -32,19 +32,22 @@ test('.5334 meter is equal to 1 feet and 9 inches', () => {
   expect(meterToFtIn(.5334)).toStrictEqual([1,9]);
 });
 
-// test('whitespace string gets converted to 0', () => {
-//   expect(toNumber("  ")).toBe(0);
-// });
+//toNumber turns whitespace to 0 - passed
+test('whitespace string gets converted to 0', () => {
+  expect(toNumber("  ")).toBe(0);
+});
 
-// test('empty string gets converted to 0', () => {
-//   expect(toNumber("")).toBe(0);
-// });
+//toNumber turns empty string to 0 - passed
+test('empty string gets converted to 0', () => {
+  expect(toNumber("")).toBe(0);
+});
 
-// test('a number string gets converted to number', () => {
-//   expect(toNumber("9")).toBe(9);
-// });
+//toNumber turns string numbers to number numbers - passed 
+test('a number string gets converted to number', () => {
+  expect(toNumber("9")).toBe(9);
+});
 
-// // ft in => meter [1,9] => .5334 meter - wip
-// test('1 feet and 9 inches is equal to .5334 meters', () => {
-//   expect(ftInToMeter([1,9])).toStrictEqual(.5334);
-// });
+// ft in [1,9] => meter => .5334 meter - passed
+test('1 feet and 9 inches is equal to .5334 meters', () => {
+  expect(ftInToMeter([1,9])).toStrictEqual(.5334);
+});
