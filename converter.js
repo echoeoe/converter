@@ -61,6 +61,14 @@ function setVal(someID, val){
     document.getElementById(someID).value = val;
 }
 
+function ftInToFeet(ftIn){
+    //take array, convert to feet
+    var feetOnly = toNumber(ftIn[0]);
+    var inchOnly = toNumber(ftIn[1]);
+    var feet = feetOnly + (inchOnly / 12);
+    return feet;
+}
+
 //IDs of inputs 
 var inpArr = ['cmInp', 'inchInp', 'meterInp', 'feetInp', 'feetInp2', 'inchInp2']; //1d
 
@@ -71,10 +79,11 @@ for (let i = 0; i<inpArr.length; i++){
 
 function fromAny(){ //triggered on any input's keyup
     //needed - correlate input field to array of array of functions
-    //var inpArr = ['cmInp', 'inchInp', 'meterInp', 'feetInp']; //1d
-    var funcArr = [['cmToIn'], ['inToCm'], ['mToFt', 'meterToFtIn'], ['feetToMeter', 'feetToFtIn'], ['ftInToMeter-placeholder'], ['ftInToMeter-placeholder'] ]; //2d 
-    var outArr = [['inchInp'], ['cmInp'], ['feetInp'], ['meterInp'], ['meterInp-PL'], ['meterInp-PL'] ]; //2d
-     
+    var funcArr = [['cmToIn'], ['inToCm'], ['mToFt', 'meterToFtIn'], ['feetToMeter', 'feetToFtIn'], ['feetInp2FuncPlaceholder'], 
+    ['inchInp2FuncPlaceholder'] ]; //2d 
+    var outArr = [['inchInp'], ['cmInp'], ['feetInp'], ['meterInp'], ['feetInp2OutputPlaceholder'], ['InchInp2OutputPlaceholder'] ]; //2d
+    
+    //handling based on inpArr > index > funcArr > outArr
     var inp = getVal(this.id);
     var index = inpArr.indexOf(this.id); //need index
     var functionCount = funcArr[index].length; //need count of all applicable functions 
@@ -84,9 +93,10 @@ function fromAny(){ //triggered on any input's keyup
     if (this.id == 'feetInp2' || this.id == 'inchInp2'){
         var ft = getVal('feetInp2');
         var inch = getVal('inchInp2');
-        var meter = ftInToMeter([ft, inch]);
-        setVal('meterInp', meter);
-        console.log(ft, inch, meter);
+        var meter = ftInToMeter([ft, inch]); //get meters
+        setVal('meterInp', meter); 
+        var feet = ftInToFeet([ft, inch]);
+        setVal('feetInp', feet);
     }
     else{
         for (let i = 0; i<functionCount; i++){
