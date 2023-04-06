@@ -1,6 +1,6 @@
 const fs = require('fs'); //file system module
 document.body.innerHTML = fs.readFileSync("./index.html"); 
-const {cmToIn, inToCm, mToFt, feetToMeter, feetToFtIn, meterToFtIn, ftInToMeter, toNumber, ftInToFeet} = require('./converter');
+const {cmToIn, inToCm, mToFt, feetToMeter, feetToFtIn, meterToFtIn, ftInToMeter, toNumber, ftInToFeet, kmToMi, miToKm} = require('./converter');
 
 // cm => in calc - passed
 test('2.54 cm is equivalent to 1 inches', () => {
@@ -56,3 +56,14 @@ test('1 feet and 9 inches is equal to .5334 meters', () => {
 test('1 feet and 6 inches is equal to 1.5 feet', () => {
   expect(ftInToFeet([1,6])).toStrictEqual(1.5);
 });
+
+//km => mi - passed
+test('1.609344 km is equal to 1 mile', () => {
+  expect(kmToMi(1)).toBe(1*100000/(2.54*63360));
+});
+
+//mi => km - passed
+test('0.621371192237334 mi is equal to 1 km', () => {
+  expect(miToKm(0.621371192237334)).toBe(1);
+});
+
