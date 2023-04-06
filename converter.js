@@ -69,8 +69,23 @@ function ftInToFeet(ftIn){
     return feet;
 }
 
+function kmToMi(km){ // 1 mi = 63360 inches
+    //km => cm => inches
+    var cm = km * 100000;
+    var inches = cm/2.54;
+    var mi = inches / 63360;
+    return mi;
+}
+
+function miToKm(mi){
+    var inches = mi * 63360;
+    var cm = inches * 2.54;
+    var km = cm / 100000;
+    return km;
+}
+
 //IDs of inputs 
-var inpArr = ['cmInp', 'inchInp', 'meterInp', 'feetInp', 'feetInp2', 'inchInp2']; //1d
+var inpArr = ['cmInp', 'inchInp', 'meterInp', 'feetInp', 'feetInp2', 'inchInp2', 'kmInp', 'miInp']; //1d
 
 //event listeners
 for (let i = 0; i<inpArr.length; i++){
@@ -80,8 +95,9 @@ for (let i = 0; i<inpArr.length; i++){
 function fromAny(){ //triggered on any input's keyup
     //needed - correlate input field to array of array of functions
     var funcArr = [['cmToIn'], ['inToCm'], ['mToFt', 'meterToFtIn'], ['feetToMeter', 'feetToFtIn'], ['feetInp2FuncPlaceholder'], 
-    ['inchInp2FuncPlaceholder'] ]; //2d 
-    var outArr = [['inchInp'], ['cmInp'], ['feetInp'], ['meterInp'], ['feetInp2OutputPlaceholder'], ['InchInp2OutputPlaceholder'] ]; //2d
+    ['inchInp2FuncPlaceholder'], ['kmToMi'], ['miToKm'] ]; //2d 
+    var outArr = [['inchInp'], ['cmInp'], ['feetInp'], ['meterInp'], ['feetInp2OutputPlaceholder'], ['InchInp2OutputPlaceholder'], 
+    ['miInp'], ['kmInp'] ]; //2d
     
     //handling based on inpArr > index > funcArr > outArr
     var inp = getVal(this.id);
