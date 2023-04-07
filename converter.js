@@ -84,8 +84,32 @@ function miToKm(mi){
     return km;
 }
 
+function tbspToCup(tbsp){
+    return tbsp/16;
+}
+
+function tbspToTsp(tbsp){
+    return tbsp * 3;
+}
+
+function cupToTbsp(cup){
+    return cup * 16;
+}
+
+function cupToTsp(cup){
+    return cup * 48;
+}
+
+function tspToTbsp(tsp){
+    return tsp/3;
+}
+
+function tspToCup(tsp){
+    return tsp/48;
+}
+
 //IDs of inputs 
-var inpArr = ['cmInp', 'inchInp', 'meterInp', 'feetInp', 'feetInp2', 'inchInp2', 'kmInp', 'miInp']; //1d
+var inpArr = ['cmInp', 'inchInp', 'meterInp', 'feetInp', 'feetInp2', 'inchInp2', 'kmInp', 'miInp', 'tbspInp', 'cupInp', 'tspInp']; //1d
 
 //event listeners
 for (let i = 0; i<inpArr.length; i++){
@@ -95,9 +119,10 @@ for (let i = 0; i<inpArr.length; i++){
 function fromAny(){ //triggered on any input's keyup
     //needed - correlate input field to array of array of functions
     var funcArr = [['cmToIn'], ['inToCm'], ['mToFt', 'meterToFtIn'], ['feetToMeter', 'feetToFtIn'], ['feetInp2FuncPlaceholder'], 
-    ['inchInp2FuncPlaceholder'], ['kmToMi'], ['miToKm'] ]; //2d 
+    ['inchInp2FuncPlaceholder'], ['kmToMi'], ['miToKm'], ['tbspToCup', 'tbspToTsp'], ['cupToTbsp', 'cupToTsp'], 
+    ['tspToTbsp', 'tspToCup']]; //2d 
     var outArr = [['inchInp'], ['cmInp'], ['feetInp'], ['meterInp'], ['feetInp2OutputPlaceholder'], ['InchInp2OutputPlaceholder'], 
-    ['miInp'], ['kmInp'] ]; //2d
+    ['miInp'], ['kmInp'], ['cupInp', 'tspInp'], ['tbspInp', 'tspInp'], ['tbspInp', 'cupInp'] ]; //2d
     
     //handling based on inpArr > index > funcArr > outArr
     var inp = getVal(this.id);
@@ -128,3 +153,6 @@ function fromAny(){ //triggered on any input's keyup
         }
     }
 }
+
+// module.exports = {cmToIn, inToCm, mToFt, feetToMeter, feetToFtIn, meterToFtIn, ftInToMeter, toNumber, ftInToFeet, kmToMi, 
+//     miToKm, tbspToCup, tbspToTsp, cupToTbsp, cupToTsp, tspToTbsp, tspToCup}; 
