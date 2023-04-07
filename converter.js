@@ -32,13 +32,22 @@ function meterToFtIn(meter){
 
 function toNumber(s){ //used in conversion functions
     var s = String(s);
-    s = s.replaceAll(" ", "");
+    s = s.replaceAll(" ", ""); //remove blanks
     if (s == ''){
         return 0;
     }
-    if (typeof(s) == 'string'){
+
+    //handle fraction
+    if (s.includes("/")){
+        var arr = s.split("/");
+        var result = arr[0]/arr[1];
+        return result;
+    }
+
+    if (typeof(s) == 'string'){ //convert
         return parseFloat(s);
     }
+
 }
 
 function ftInToMeter(ftIn){
@@ -85,33 +94,37 @@ function miToKm(mi){
 }
 
 function tbspToCup(tbsp){
-    return tbsp/16;
+    return toNumber(tbsp)/16;
 }
 
 function tbspToTsp(tbsp){
-    return tbsp * 3;
+    return toNumber(tbsp) * 3;
 }
 
 function cupToTbsp(cup){
-    return cup * 16;
+    return toNumber(cup) * 16;
 }
 
 function cupToTsp(cup){
-    return cup * 48;
+    return toNumber(cup) * 48;
 }
 
 function tspToTbsp(tsp){
-    return tsp/3;
+    return toNumber(tsp)/3;
 }
 
 function tspToCup(tsp){
-    return tsp/48;
+    return toNumber(tsp)/48;
 }
 
 //IDs of inputs 
 var inpArr = ['cmInp', 'inchInp', 'meterInp', 'feetInp', 'feetInp2', 'inchInp2', 'kmInp', 'miInp', 'tbspInp', 'cupInp', 'tspInp']; //1d
 
 //event listeners
+for (let i = 0; i<inpArr.length; i++){
+    document.getElementById(inpArr[i]).addEventListener("change", fromAny);    
+}
+
 for (let i = 0; i<inpArr.length; i++){
     document.getElementById(inpArr[i]).addEventListener("keyup", fromAny);    
 }
