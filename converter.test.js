@@ -1,6 +1,7 @@
 const fs = require('fs'); //file system module
 document.body.innerHTML = fs.readFileSync("./index.html"); 
-const {cmToIn, inToCm, mToFt, feetToMeter, feetToFtIn, meterToFtIn, ftInToMeter, toNumber, ftInToFeet, kmToMi, miToKm} = require('./converter');
+const {cmToIn, inToCm, mToFt, feetToMeter, feetToFtIn, meterToFtIn, ftInToMeter, toNumber, ftInToFeet, kmToMi, miToKm, tbspToCup
+, tbspToTsp, cupToTbsp, cupToTsp, tspToTbsp, tspToCup} = require('./converter');
 
 // cm => in calc - passed
 test('2.54 cm is equivalent to 1 inches', () => {
@@ -67,3 +68,32 @@ test('0.621371192237334 mi is equal to 1 km', () => {
   expect(miToKm(0.621371192237334)).toBe(1);
 });
 
+//tbsp => cup - passed
+test('16 tbsp is equal to 1 cup', () => {
+  expect(tbspToCup(16)).toBe(1);
+});
+
+//tbsp => tsp - passed
+test('1 tbsp is equal to 3 tsps', () => {
+  expect(tbspToTsp(1)).toBe(3);
+});
+
+//cup => tbsp - passed
+test('1 cup is equal to 16 tbsp', () => {
+  expect(cupToTbsp(1)).toBe(16);
+});
+
+//cup => tsp - passed 
+test('1 cup is equal to 48 tsp', () => {
+  expect(cupToTsp(1)).toBe(48);
+});
+
+//tsp => tbsp - passed
+test('3 tsp is equal to 1 tbsp', () => {
+  expect(tspToTbsp(3)).toBe(1);
+});
+
+//tsp => cup - passed
+test('48 tsp is equal to 1 cup', () => {
+  expect(tspToCup(48)).toBe(1);
+});
