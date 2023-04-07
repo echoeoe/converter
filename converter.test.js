@@ -97,3 +97,8 @@ test('3 tsp is equal to 1 tbsp', () => {
 test('48 tsp is equal to 1 cup', () => {
   expect(tspToCup(48)).toBe(1);
 });
+
+//to number processes non-mixed fractions involving one division - passed
+test('1/2 is equal to .5', () => {
+  expect(toNumber('1/2')).toBe(.5);
+});
