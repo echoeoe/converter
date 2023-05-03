@@ -31,7 +31,7 @@ function meterToFtIn(meter){
 }
 
 function toNumber(s){ //used in conversion functions
-    var s = String(s);
+    s = String(s);
     s = s.replaceAll(" ", ""); //remove blanks
     if (s == ''){
         return 0;
@@ -167,5 +167,5 @@ function fromAny(){ //triggered on any input's keyup
     }
 }
 
-module.exports = {cmToIn, inToCm, mToFt, feetToMeter, feetToFtIn, meterToFtIn, ftInToMeter, toNumber, ftInToFeet, kmToMi, 
-    miToKm, tbspToCup, tbspToTsp, cupToTbsp, cupToTsp, tspToTbsp, tspToCup}; 
+// module.exports = {cmToIn, inToCm, mToFt, feetToMeter, feetToFtIn, meterToFtIn, ftInToMeter, toNumber, ftInToFeet, kmToMi, 
+//     miToKm, tbspToCup, tbspToTsp, cupToTbsp, cupToTsp, tspToTbsp, tspToCup}; 
