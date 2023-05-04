@@ -1,3 +1,14 @@
+const shortDistances = { //short distance object
+    cmInp: {
+        function: cmToIn,
+        output: "inchInp"
+    },
+    inchInp: {
+        function: inToCm,
+        output: "cmInp"
+    }
+}
+
 // calculation functions
 function cmToIn(cm){ //in cm, out inches
     return inches = cm / 2.54;
@@ -129,43 +140,17 @@ for (let i = 0; i<inpArr.length; i++){
     document.getElementById(inpArr[i]).addEventListener("keyup", fromAny);    
 }
 
-function fromAny(){ //triggered on any input's keyup
-    //needed - correlate input field to array of array of functions
-    const funcArr = [['cmToIn'], ['inToCm'], ['mToFt', 'meterToFtIn'], ['feetToMeter', 'feetToFtIn'], ['feetInp2FuncPlaceholder'], 
-    ['inchInp2FuncPlaceholder'], ['kmToMi'], ['miToKm'], ['tbspToCup', 'tbspToTsp'], ['cupToTbsp', 'cupToTsp'], 
-    ['tspToTbsp', 'tspToCup']]; //2d 
-    const outArr = [['inchInp'], ['cmInp'], ['feetInp'], ['meterInp'], ['feetInp2OutputPlaceholder'], ['InchInp2OutputPlaceholder'], 
-    ['miInp'], ['kmInp'], ['cupInp', 'tspInp'], ['tbspInp', 'tspInp'], ['tbspInp', 'cupInp'] ]; //2d
-    
-    //handling based on inpArr > index > funcArr > outArr
-    const inp = getVal(this.id);
-    const index = inpArr.indexOf(this.id); //need index
-    const functionCount = funcArr[index].length; //need count of all applicable functions 
-    const funcArrUse = funcArr[index]; //useful functions
-    const outArrUse = outArr[index]; //output locations
+function fromAny(){ 
 
-    if (this.id == 'feetInp2' || this.id == 'inchInp2'){
-        const ft = getVal('feetInp2');
-        const inch = getVal('inchInp2');
-        const meter = ftInToMeter([ft, inch]); //get meters
-        setVal('meterInp', meter); 
-        const feet = ftInToFeet([ft, inch]);
-        setVal('feetInp', feet);
-    }
-    else{
-        for (let i = 0; i<functionCount; i++){
-            if (funcArrUse[i] == 'feetToFtIn' || funcArrUse[i] == 'meterToFtIn'){
-                const func = funcArrUse[i];
-                const ftInArr = window[func](inp);
-                setVal('feetInp2', ftInArr[0]);
-                setVal('inchInp2', ftInArr[1]);
-            }
-            else {
-                setVal(outArrUse[i], window[funcArrUse[i]](inp));
-            }
-        }
+// cm & inches 
+for (let inputID in shortDistances){
+    if (inputID == this.id){
+        //set output to function return value
+        setVal(shortDistances[inputID].output, shortDistances[inputID].function(getVal(this.id)));
     }
 }
+    
+ }
 
 // module.exports = {cmToIn, inToCm, mToFt, feetToMeter, feetToFtIn, meterToFtIn, ftInToMeter, toNumber, ftInToFeet, kmToMi, 
 //     miToKm, tbspToCup, tbspToTsp, cupToTbsp, cupToTsp, tspToTbsp, tspToCup}; 
