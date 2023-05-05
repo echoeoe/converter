@@ -1,7 +1,7 @@
 const fs = require('fs'); //file system module
 document.body.innerHTML = fs.readFileSync("./index.html"); 
 const {cmToIn, inToCm, mToFt, feetToMeter, feetToFtIn, meterToFtIn, ftInToMeter, toNumber, ftInToFeet, kmToMi, miToKm, tbspToCup
-, tbspToTsp, cupToTbsp, cupToTsp, tspToTbsp, tspToCup} = require('./converter');
+, tbspToTsp, cupToTbsp, cupToTsp, tspToTbsp, tspToCup, meterToFt2, meterToIn2, feetToFt2} = require('./converter');
 
 // cm => in calc - passed
 test('2.54 cm is equivalent to 1 inches', () => {
@@ -28,9 +28,26 @@ test('1.5 feet is equal to 1 feet and 6 inches', () => {
   expect(feetToFtIn(1.5)).toStrictEqual([1,6]);
 });
 
-//meter => ft and inches - passed 
+//feet => feet only - passed
+test('1.5 feet contains 1 full feet', () => {
+  expect(feetToFt2(1.5)).toBe(1);
+});
+
+//left off here 
+
+//meter => ft and inches - passed                                           TO BE REPLACED
 test('.5334 meter is equal to 1 feet and 9 inches', () => {
   expect(meterToFtIn(.5334)).toStrictEqual([1,9]);
+});
+
+//meter => ft only - passed
+test('.5334 meter contains 1 foot', () => {
+  expect(meterToFt2(.5334)).toBe(1);
+});
+
+//meter => inch only - passed
+test('.5334 meter contains 9 inches', () => {
+  expect(meterToIn2(.5334)).toBe(9);
 });
 
 //toNumber turns whitespace to 0 - passed
@@ -102,3 +119,4 @@ test('48 tsp is equal to 1 cup', () => {
 test('1/2 is equal to .5', () => {
   expect(toNumber('1/2')).toBe(.5);
 });
+
