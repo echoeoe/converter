@@ -33,12 +33,6 @@ function feetToMeter(feet){
     return meter = feet * 0.3048;
 }
 
-function feetToFtIn(feet){                  //to be replaced
-    const ft = Math.floor(feet);
-    const inch = (feet - ft) * 12;
-    return [ft, inch];
-}
-
 function feetToFt2(feet){
     const ft = Math.floor(feet);
     return ft;
@@ -48,15 +42,6 @@ function feetToIn2(feet){
     const ft = Math.floor(feet);
     const inch = (feet - ft) * 12;
     return inch;
-}
-
-function meterToFtIn(meter){                    //to be removed
-    //convert to cm, then inches, then ft in 
-    const cm = meter * 100;
-    const inch = cm / 2.54;
-    const ftOnly = Math.floor(inch / 12);
-    const inchOnly = inch - (ftOnly * 12);
-    return [ftOnly, inchOnly];
 }
 
 function meterToFt2(meter){
@@ -162,6 +147,14 @@ const mIn2Path = {input: "meterInp", function: meterToIn2, output: "inchInp2"} /
 const ftMPath = {input: "feetInp", function: feetToMeter, output: "meterInp"} // feet to meters 
 const ftFt2Path = {input: "feetInp", function: feetToFt2, output: "feetInp2"} //feet to {feet only}
 const ftIn2Path = {input: "feetInp", function: feetToIn2, output: "inchInp2"} //feet to {inch only}
+const tbspCupPath = {input: "tbspInp", function: tbspToCup, output: "cupInp"}
+const tbspTspPath = {input: "tbspInp", function: tbspToTsp, output: "tspInp"}
+const cupTbspPath = {input: "cupInp", function: cupToTbsp, output: "tbspInp"}
+const cupTspPath = {input: "cupInp", function: cupToTsp, output: "tspInp"}
+
+const tspCupPath = {input: "tspInp", function: tspToCup, output: "cupInp"}
+const tspTbspPath = {input: "tspInp", function: tspToTbsp, output: "tbspInp"}
+
 
 function processPath(path){
     setVal(path.output, path.function(getVal(path.input)));
@@ -195,8 +188,17 @@ function fromAny(){
         case "feetInp2": ftInToOther();
         break;
         case "inchInp2": ftInToOther();
+        break;
+        case "tbspInp": processPath(tbspCupPath);
+        processPath(tbspTspPath);
+        break;
+        case "cupInp": processPath(cupTbspPath);
+        processPath(cupTspPath);
+        break;
+        case "tspInp": processPath(tspCupPath);
+        processPath(tspTbspPath);
     }
  }
 
-// module.exports = {cmToIn, inToCm, mToFt, feetToMeter, feetToFtIn, meterToFtIn, ftInToMeter, toNumber, ftInToFeet, kmToMi, 
-//     miToKm, tbspToCup, tbspToTsp, cupToTbsp, cupToTsp, tspToTbsp, tspToCup, meterToFt2, meterToIn2, feetToFt2, feetToIn2}; 
+module.exports = {cmToIn, inToCm, mToFt, feetToMeter, ftInToMeter, toNumber, ftInToFeet, kmToMi, 
+    miToKm, tbspToCup, tbspToTsp, cupToTbsp, cupToTsp, tspToTbsp, tspToCup, meterToFt2, meterToIn2, feetToFt2, feetToIn2}; 
