@@ -1,4 +1,9 @@
+function round(n){
+    return (Math.round(n*100)/100).toFixed(2);
+}
+
 function toNumber(s){ //used in conversion functions
+    s = String(s);
     if (s == false){
         return 0;
     }
@@ -157,7 +162,7 @@ function processPath(path){
         setVal(path.output, "");
     }
     else{
-        setVal( path.output, path.function(getVal(path.input)).toFixed(2) );
+        setVal( path.output, round(path.function(getVal(path.input))) );
     }
 }
 
@@ -169,8 +174,8 @@ function ftInToOther(){
         setVal("feetInp", ""); 
     }
     else{
-        setVal("meterInp", ftInToMeter([ft, inch]).toFixed(2)); //set meters
-        setVal("feetInp", ftInToFeet([ft, inch]).toFixed(2)); // set feet
+        setVal("meterInp", round( ftInToMeter([ft, inch])) ); //set meters
+        setVal("feetInp", round( ftInToFeet([ft, inch])) ); // set feet
     }
 }
 
