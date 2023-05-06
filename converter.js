@@ -5,8 +5,7 @@ function toNumber(s){ //used in conversion functions
         return 0;
     }
 
-    //handle fraction
-    if (s.includes("/")){
+    if (s.includes("/")){ //handle fraction
         const arr = s.split("/");
         const result = arr[0]/arr[1];
         return result;
@@ -43,6 +42,12 @@ function feetToFtIn(feet){                  //to be replaced
 function feetToFt2(feet){
     const ft = Math.floor(feet);
     return ft;
+}
+
+function feetToIn2(feet){                  
+    const ft = Math.floor(feet);
+    const inch = (feet - ft) * 12;
+    return inch;
 }
 
 function meterToFtIn(meter){                    //to be removed
@@ -146,157 +151,52 @@ for (let i = 0; i<inpArr.length; i++){
     document.getElementById(inpArr[i]).addEventListener("keyup", fromAny);      
 }
 
-//distance objects 
-const cmInPath = {
-    input: "cmInp",
-    function: cmToIn,
-    output: "inchInp"
-}
-
-const inCmPath = {
-    input: "inchInp",
-    function: inToCm,
-    output: "cmInp"
-}
-
-const kmMiPath = {
-    input: "kmInp",
-    function: kmToMi,
-    output: "miInp"
-}
-
-const miKmPath = {
-    input: "miInp",
-    function: miToKm,
-    output: "kmInp"
-}
-
-const mFtPath = {
-    input: "meterInp",
-    function: mToFt,
-    output: "feetInp"
-}
-
-const mFt2Path = {
-    input: "meterInp",
-    function: meterToFt2,
-    output: "feetInp2"
-}
-
-const mIn2Path = {
-    input: "meterInp",
-    function: meterToIn2,
-    output: "inchInp2"
-}
-
-const ftMPath = {
-    input: "feetInp",
-    function: feetToMeter,
-    output: "meterInp"
-}
-
-const ftFt2Path = {
-    input: "feetInp",
-    function: feetToFt2,
-    output: "feetInp2"
-}
+//processing paths 
+const cmInPath = {input: "cmInp", function: cmToIn, output: "inchInp"}
+const inCmPath = {input: "inchInp", function: inToCm, output: "cmInp"}
+const kmMiPath = {input: "kmInp", function: kmToMi, output: "miInp"}
+const miKmPath = {input: "miInp", function: miToKm, output: "kmInp"}
+const mFtPath = {input: "meterInp", function: mToFt, output: "feetInp"} //meters to feet 
+const mFt2Path = {input: "meterInp",function: meterToFt2, output: "feetInp2"} //meters to {feet only}
+const mIn2Path = {input: "meterInp", function: meterToIn2, output: "inchInp2"} // meters to {inch only}
+const ftMPath = {input: "feetInp", function: feetToMeter, output: "meterInp"} // feet to meters 
+const ftFt2Path = {input: "feetInp", function: feetToFt2, output: "feetInp2"} //feet to {feet only}
+const ftIn2Path = {input: "feetInp", function: feetToIn2, output: "inchInp2"} //feet to {inch only}
 
 function processPath(path){
-    //put 
     setVal(path.output, path.function(getVal(path.input)));
-    console.log("done");
+}
+
+function ftInToOther(){
+    const ft = getVal("feetInp2");
+    const inch = getVal("inchInp2");
+    setVal("meterInp", ftInToMeter([ft, inch])); //set meters
+    setVal("feetInp", ftInToFeet([ft, inch])); // set feet
 }
 
 function fromAny(){ 
     switch(this.id){
-        case "cmInp": processPath(cmInPath);
+        case "cmInp": processPath(cmInPath); // cm & inches 
         break;
         case "inchInp": processPath(inCmPath);
         break;
-        case "kmInp": processPath(kmMiPath);
+        case "kmInp": processPath(kmMiPath); // km & mi 
         break;
         case "miInp": processPath(miKmPath);
         break;
-        case "meterInp": processPath(mFtPath); //medium 
+        case "meterInp": processPath(mFtPath); // meters & feet & in 
         processPath(mFt2Path);
         processPath(mIn2Path);
         break;
         case "feetInp": processPath(ftMPath);
         processPath(ftFt2Path);
-        
+        processPath(ftIn2Path);
+        break;
+        case "feetInp2": ftInToOther();
+        break;
+        case "inchInp2": ftInToOther();
     }
  }
- 
 
-module.exports = {cmToIn, inToCm, mToFt, feetToMeter, feetToFtIn, meterToFtIn, ftInToMeter, toNumber, ftInToFeet, kmToMi, 
-    miToKm, tbspToCup, tbspToTsp, cupToTbsp, cupToTsp, tspToTbsp, tspToCup, meterToFt2, meterToIn2, feetToFt2}; 
-
-
-// const shortDistances = { //short distance object
-//     cmInp: {
-//         function: cmToIn,
-//         output: "inchInp"
-//     },
-//     inchInp: {
-//         function: inToCm,
-//         output: "cmInp"
-//     }
-// }
-
-// const mediumDistances = {
-//     meterInp: {
-//         function: {
-//             0: mToFt, 
-//             1: meterToFtIn,
-//             2: meterToFtIn
-//         },
-//         output: {
-//             0: "feetInp", 
-//             1: "feetInp2", 
-//             2: "inchInp2"
-//         }
-//     },
-//     feetInp: {
-//         function: {
-//             0: feetToMeter,
-//             1: feetToFtIn,
-//             2: feetToFtIn
-//         },
-//         output: {
-//             0: "meterInp",
-//             1: "feetInp2",
-//             2: "inchInp2"
-//         }
-//     },
-//     feetInp2: {
-//         function:{
-//             0: ftInToMeter,
-//             1: ftInToFeet
-//         },
-//         output:{
-//             0: "meterInp",
-//             1: "feetInp"
-//         }
-//     }
-
-// }
-
-
-// const longDistances = {
-//     kmInp: {
-//         function: kmToMi,
-//         output: "miInp"
-//     },
-//     miInp: {
-//         function: miToKm,
-//         output: "kmInp"
-//     }
-// }
-
-// cm & inches 
-// for (let inputID in shortDistances){
-//     if (inputID == this.id){
-//         //set output to function return value
-//         setVal(shortDistances[inputID].output, shortDistances[inputID].function(getVal(this.id)));
-//     }
-// }
+// module.exports = {cmToIn, inToCm, mToFt, feetToMeter, feetToFtIn, meterToFtIn, ftInToMeter, toNumber, ftInToFeet, kmToMi, 
+//     miToKm, tbspToCup, tbspToTsp, cupToTbsp, cupToTsp, tspToTbsp, tspToCup, meterToFt2, meterToIn2, feetToFt2, feetToIn2}; 
