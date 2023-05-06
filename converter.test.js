@@ -1,7 +1,7 @@
 const fs = require('fs'); //file system module
 document.body.innerHTML = fs.readFileSync("./index.html"); 
 const {cmToIn, inToCm, mToFt, feetToMeter, feetToFtIn, meterToFtIn, ftInToMeter, toNumber, ftInToFeet, kmToMi, miToKm, tbspToCup
-, tbspToTsp, cupToTbsp, cupToTsp, tspToTbsp, tspToCup, meterToFt2, meterToIn2, feetToFt2} = require('./converter');
+, tbspToTsp, cupToTbsp, cupToTsp, tspToTbsp, tspToCup, meterToFt2, meterToIn2, feetToFt2, feetToIn2} = require('./converter');
 
 // cm => in calc - passed
 test('2.54 cm is equivalent to 1 inches', () => {
@@ -33,7 +33,12 @@ test('1.5 feet contains 1 full feet', () => {
   expect(feetToFt2(1.5)).toBe(1);
 });
 
-//left off here 
+//feet => inch only - passed
+test('1.5 feet contains 6 inches', () => {
+  expect(feetToIn2(1.5)).toBe(6);
+});
+
+//left off here
 
 //meter => ft and inches - passed                                           TO BE REPLACED
 test('.5334 meter is equal to 1 feet and 9 inches', () => {
