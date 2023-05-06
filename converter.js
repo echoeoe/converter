@@ -151,10 +151,8 @@ const tbspCupPath = {input: "tbspInp", function: tbspToCup, output: "cupInp"}
 const tbspTspPath = {input: "tbspInp", function: tbspToTsp, output: "tspInp"}
 const cupTbspPath = {input: "cupInp", function: cupToTbsp, output: "tbspInp"}
 const cupTspPath = {input: "cupInp", function: cupToTsp, output: "tspInp"}
-
 const tspCupPath = {input: "tspInp", function: tspToCup, output: "cupInp"}
 const tspTbspPath = {input: "tspInp", function: tspToTbsp, output: "tbspInp"}
-
 
 function processPath(path){
     setVal(path.output, path.function(getVal(path.input)));
@@ -200,5 +198,5 @@ function fromAny(){
     }
  }
 
-module.exports = {cmToIn, inToCm, mToFt, feetToMeter, ftInToMeter, toNumber, ftInToFeet, kmToMi, 
-    miToKm, tbspToCup, tbspToTsp, cupToTbsp, cupToTsp, tspToTbsp, tspToCup, meterToFt2, meterToIn2, feetToFt2, feetToIn2}; 
+// module.exports = {cmToIn, inToCm, mToFt, feetToMeter, ftInToMeter, toNumber, ftInToFeet, kmToMi, 
+//     miToKm, tbspToCup, tbspToTsp, cupToTbsp, cupToTsp, tspToTbsp, tspToCup, meterToFt2, meterToIn2, feetToFt2, feetToIn2}; 
