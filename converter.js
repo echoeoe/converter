@@ -1,11 +1,9 @@
 function toNumber(s){ //used in conversion functions
-    s = String(s);
-    s = s.replaceAll(" ", ""); //remove blanks
-    if (s == ''){
+    if (s == false){
         return 0;
     }
 
-    if (s.includes("/")){ //handle fraction
+    else if (s.includes("/")){ //handle fraction
         const arr = s.split("/");
         const result = arr[0]/arr[1];
         return result;
@@ -155,14 +153,25 @@ const tspCupPath = {input: "tspInp", function: tspToCup, output: "cupInp"}
 const tspTbspPath = {input: "tspInp", function: tspToTbsp, output: "tbspInp"}
 
 function processPath(path){
-    setVal(path.output, path.function(getVal(path.input)));
+    if (getVal(path.input) == false){ //falsy values - blank output
+        setVal(path.output, "");
+    }
+    else{
+        setVal(path.output, path.function(getVal(path.input)));
+    }
 }
 
 function ftInToOther(){
     const ft = getVal("feetInp2");
     const inch = getVal("inchInp2");
-    setVal("meterInp", ftInToMeter([ft, inch])); //set meters
-    setVal("feetInp", ftInToFeet([ft, inch])); // set feet
+    if (ft == false && inch == false){ //falsy input
+        setVal("meterInp", ""); 
+        setVal("feetInp", ""); 
+    }
+    else{
+        setVal("meterInp", ftInToMeter([ft, inch])); //set meters
+        setVal("feetInp", ftInToFeet([ft, inch])); // set feet
+    }
 }
 
 function fromAny(){ 
