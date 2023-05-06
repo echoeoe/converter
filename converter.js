@@ -1,3 +1,21 @@
+function toNumber(s){ //used in conversion functions
+    s = String(s);
+    s = s.replaceAll(" ", ""); //remove blanks
+    if (s == ''){
+        return 0;
+    }
+
+    if (s.includes("/")){ //handle fraction
+        const arr = s.split("/");
+        const result = arr[0]/arr[1];
+        return result;
+    }
+
+    if (typeof(s) == 'string'){ //convert
+        return parseFloat(s);
+    }
+}
+
 // calculation functions
 function cmToIn(cm){ //in cm, out inches
     return inches = cm / 2.54;
@@ -15,39 +33,30 @@ function feetToMeter(feet){
     return meter = feet * 0.3048;
 }
 
-function feetToFtIn(feet){
+function feetToFt2(feet){
     const ft = Math.floor(feet);
-    const inch = (feet - ft) * 12;
-    return [ft, inch];
+    return ft;
 }
 
-function meterToFtIn(meter){ 
-    //convert to cm, then inches, then ft in 
+function feetToIn2(feet){                  
+    const ft = Math.floor(feet);
+    const inch = (feet - ft) * 12;
+    return inch;
+}
+
+function meterToFt2(meter){
+    const cm = meter * 100;
+    const inch = cm / 2.54;
+    const ftOnly = Math.floor(inch / 12);
+    return ftOnly;
+}
+
+function meterToIn2(meter){
     const cm = meter * 100;
     const inch = cm / 2.54;
     const ftOnly = Math.floor(inch / 12);
     const inchOnly = inch - (ftOnly * 12);
-    return [ftOnly, inchOnly];
-}
-
-function toNumber(s){ //used in conversion functions
-    s = String(s);
-    s = s.replaceAll(" ", ""); //remove blanks
-    if (s == ''){
-        return 0;
-    }
-
-    //handle fraction
-    if (s.includes("/")){
-        const arr = s.split("/");
-        const result = arr[0]/arr[1];
-        return result;
-    }
-
-    if (typeof(s) == 'string'){ //convert
-        return parseFloat(s);
-    }
-
+    return inchOnly;
 }
 
 function ftInToMeter(ftIn){
@@ -60,14 +69,6 @@ function ftInToMeter(ftIn){
     const inchOnly = (ft * 12) + inch;
     const cm = inchOnly * 2.54;
     return m = cm / 100;
-}
-
-function getVal(someID){
-    return document.getElementById(someID).value;
-}
-
-function setVal(someID, val){
-    document.getElementById(someID).value = val;
 }
 
 function ftInToFeet(ftIn){
@@ -117,55 +118,85 @@ function tspToCup(tsp){
     return toNumber(tsp)/48;
 }
 
+//convenience 
+function getVal(someID){
+    return document.getElementById(someID).value;
+}
+
+function setVal(someID, val){
+    document.getElementById(someID).value = val;
+}
+
 //IDs of inputs 
 const inpArr = ['cmInp', 'inchInp', 'meterInp', 'feetInp', 'feetInp2', 'inchInp2', 'kmInp', 'miInp', 'tbspInp', 'cupInp', 'tspInp']; //1d
 
 //event listeners
 for (let i = 0; i<inpArr.length; i++){
-    document.getElementById(inpArr[i]).addEventListener("change", fromAny);    
+    document.getElementById(inpArr[i]).addEventListener("change", fromAny); // so arrows work
+    document.getElementById(inpArr[i]).addEventListener("keyup", fromAny);      
 }
 
-for (let i = 0; i<inpArr.length; i++){
-    document.getElementById(inpArr[i]).addEventListener("keyup", fromAny);    
+//processing paths 
+const cmInPath = {input: "cmInp", function: cmToIn, output: "inchInp"}
+const inCmPath = {input: "inchInp", function: inToCm, output: "cmInp"}
+const kmMiPath = {input: "kmInp", function: kmToMi, output: "miInp"}
+const miKmPath = {input: "miInp", function: miToKm, output: "kmInp"}
+const mFtPath = {input: "meterInp", function: mToFt, output: "feetInp"} //meters to feet 
+const mFt2Path = {input: "meterInp",function: meterToFt2, output: "feetInp2"} //meters to {feet only}
+const mIn2Path = {input: "meterInp", function: meterToIn2, output: "inchInp2"} // meters to {inch only}
+const ftMPath = {input: "feetInp", function: feetToMeter, output: "meterInp"} // feet to meters 
+const ftFt2Path = {input: "feetInp", function: feetToFt2, output: "feetInp2"} //feet to {feet only}
+const ftIn2Path = {input: "feetInp", function: feetToIn2, output: "inchInp2"} //feet to {inch only}
+const tbspCupPath = {input: "tbspInp", function: tbspToCup, output: "cupInp"}
+const tbspTspPath = {input: "tbspInp", function: tbspToTsp, output: "tspInp"}
+const cupTbspPath = {input: "cupInp", function: cupToTbsp, output: "tbspInp"}
+const cupTspPath = {input: "cupInp", function: cupToTsp, output: "tspInp"}
+const tspCupPath = {input: "tspInp", function: tspToCup, output: "cupInp"}
+const tspTbspPath = {input: "tspInp", function: tspToTbsp, output: "tbspInp"}
+
+function processPath(path){
+    setVal(path.output, path.function(getVal(path.input)));
 }
 
-function fromAny(){ //triggered on any input's keyup
-    //needed - correlate input field to array of array of functions
-    const funcArr = [['cmToIn'], ['inToCm'], ['mToFt', 'meterToFtIn'], ['feetToMeter', 'feetToFtIn'], ['feetInp2FuncPlaceholder'], 
-    ['inchInp2FuncPlaceholder'], ['kmToMi'], ['miToKm'], ['tbspToCup', 'tbspToTsp'], ['cupToTbsp', 'cupToTsp'], 
-    ['tspToTbsp', 'tspToCup']]; //2d 
-    const outArr = [['inchInp'], ['cmInp'], ['feetInp'], ['meterInp'], ['feetInp2OutputPlaceholder'], ['InchInp2OutputPlaceholder'], 
-    ['miInp'], ['kmInp'], ['cupInp', 'tspInp'], ['tbspInp', 'tspInp'], ['tbspInp', 'cupInp'] ]; //2d
-    
-    //handling based on inpArr > index > funcArr > outArr
-    const inp = getVal(this.id);
-    const index = inpArr.indexOf(this.id); //need index
-    const functionCount = funcArr[index].length; //need count of all applicable functions 
-    const funcArrUse = funcArr[index]; //useful functions
-    const outArrUse = outArr[index]; //output locations
+function ftInToOther(){
+    const ft = getVal("feetInp2");
+    const inch = getVal("inchInp2");
+    setVal("meterInp", ftInToMeter([ft, inch])); //set meters
+    setVal("feetInp", ftInToFeet([ft, inch])); // set feet
+}
 
-    if (this.id == 'feetInp2' || this.id == 'inchInp2'){
-        const ft = getVal('feetInp2');
-        const inch = getVal('inchInp2');
-        const meter = ftInToMeter([ft, inch]); //get meters
-        setVal('meterInp', meter); 
-        const feet = ftInToFeet([ft, inch]);
-        setVal('feetInp', feet);
+function fromAny(){ 
+    switch(this.id){
+        case "cmInp": processPath(cmInPath); // cm & inches 
+        break;
+        case "inchInp": processPath(inCmPath);
+        break;
+        case "kmInp": processPath(kmMiPath); // km & mi 
+        break;
+        case "miInp": processPath(miKmPath);
+        break;
+        case "meterInp": processPath(mFtPath); // meters & feet & in 
+        processPath(mFt2Path);
+        processPath(mIn2Path);
+        break;
+        case "feetInp": processPath(ftMPath);
+        processPath(ftFt2Path);
+        processPath(ftIn2Path);
+        break;
+        case "feetInp2": ftInToOther();
+        break;
+        case "inchInp2": ftInToOther();
+        break;
+        case "tbspInp": processPath(tbspCupPath);
+        processPath(tbspTspPath);
+        break;
+        case "cupInp": processPath(cupTbspPath);
+        processPath(cupTspPath);
+        break;
+        case "tspInp": processPath(tspCupPath);
+        processPath(tspTbspPath);
     }
-    else{
-        for (let i = 0; i<functionCount; i++){
-            if (funcArrUse[i] == 'feetToFtIn' || funcArrUse[i] == 'meterToFtIn'){
-                const func = funcArrUse[i];
-                const ftInArr = window[func](inp);
-                setVal('feetInp2', ftInArr[0]);
-                setVal('inchInp2', ftInArr[1]);
-            }
-            else {
-                setVal(outArrUse[i], window[funcArrUse[i]](inp));
-            }
-        }
-    }
-}
+ }
 
-// module.exports = {cmToIn, inToCm, mToFt, feetToMeter, feetToFtIn, meterToFtIn, ftInToMeter, toNumber, ftInToFeet, kmToMi, 
-//     miToKm, tbspToCup, tbspToTsp, cupToTbsp, cupToTsp, tspToTbsp, tspToCup}; 
+// module.exports = {cmToIn, inToCm, mToFt, feetToMeter, ftInToMeter, toNumber, ftInToFeet, kmToMi, 
+//     miToKm, tbspToCup, tbspToTsp, cupToTbsp, cupToTsp, tspToTbsp, tspToCup, meterToFt2, meterToIn2, feetToFt2, feetToIn2}; 
