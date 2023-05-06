@@ -4,7 +4,7 @@ const {cmToIn, inToCm, mToFt, feetToMeter, ftInToMeter, toNumber, ftInToFeet, km
 , tbspToTsp, cupToTbsp, cupToTsp, tspToTbsp, tspToCup, meterToFt2, meterToIn2, feetToFt2, feetToIn2} = require('./converter');
 
 // cm => in calc - passed
-test('2.54 cm is equivalent to 1 inches', () => {
+test('2.54 cm is equivalent to 1 inch', () => {
     expect(cmToIn(2.54)).toBe(1); 
   });
 
@@ -14,32 +14,32 @@ test('1 inch is equivalent to 2.54 cm', () => {
 });
 
 // meter => feet calc - passed
-test('1 meter is equivalent to 3.280839895 feet', () => {
-  expect(mToFt(1)).toBe(1/.3048);
+test('.3048 meter is equivalent to 1 foot', () => {
+  expect(mToFt(.3048)).toBe(1);
 });
 
 // feet => meter - passed
-test('1 feet is equivalent to 0.3048 meters', () => {
+test('1 foot is equivalent to 0.3048 meters', () => {
   expect(feetToMeter(1)).toBe(0.3048);
 });
 
 //feet => feet only - passed
-test('1.5 feet contains 1 full feet', () => {
+test('1.5 feet contains 1 foot and x inches', () => {
   expect(feetToFt2(1.5)).toBe(1);
 });
 
 //feet => inch only - passed
-test('1.5 feet contains 6 inches', () => {
+test('1.5 feet contains x feet and 6 inches', () => {
   expect(feetToIn2(1.5)).toBe(6);
 });
 
 //meter => ft only - passed
-test('.5334 meter contains 1 foot', () => {
+test('.5334 meter contains 1 foot and x inches', () => {
   expect(meterToFt2(.5334)).toBe(1);
 });
 
 //meter => inch only - passed
-test('.5334 meter contains 9 inches', () => {
+test('.5334 meter contains x feet and 9 inches', () => {
   expect(meterToIn2(.5334)).toBe(9);
 });
 
@@ -69,7 +69,7 @@ test('1 feet and 6 inches is equal to 1.5 feet', () => {
 });
 
 //km => mi - passed
-test('1.609344 km is equal to 1 mile', () => {
+test('1 km is equal to 0.621371192237334 mile', () => {
   expect(kmToMi(1)).toBe(1*100000/(2.54*63360));
 });
 
