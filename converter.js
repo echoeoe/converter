@@ -1,8 +1,9 @@
-function round (n){
+function round(n){
     return (Math.round(n*100)/100).toFixed(2);
 }
 
 function toNumber(s){ //used in conversion functions
+    s = String(s);
     if (s == false){
         return 0;
     }
