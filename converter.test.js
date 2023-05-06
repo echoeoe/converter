@@ -1,6 +1,6 @@
 const fs = require('fs'); //file system module
 document.body.innerHTML = fs.readFileSync("./index.html"); 
-const {cmToIn, inToCm, mToFt, feetToMeter, feetToFtIn, meterToFtIn, ftInToMeter, toNumber, ftInToFeet, kmToMi, miToKm, tbspToCup
+const {cmToIn, inToCm, mToFt, feetToMeter, ftInToMeter, toNumber, ftInToFeet, kmToMi, miToKm, tbspToCup
 , tbspToTsp, cupToTbsp, cupToTsp, tspToTbsp, tspToCup, meterToFt2, meterToIn2, feetToFt2, feetToIn2} = require('./converter');
 
 // cm => in calc - passed
@@ -23,11 +23,6 @@ test('1 feet is equivalent to 0.3048 meters', () => {
   expect(feetToMeter(1)).toBe(0.3048);
 });
 
-//feet => feet and inches - passed
-test('1.5 feet is equal to 1 feet and 6 inches', () => {
-  expect(feetToFtIn(1.5)).toStrictEqual([1,6]);
-});
-
 //feet => feet only - passed
 test('1.5 feet contains 1 full feet', () => {
   expect(feetToFt2(1.5)).toBe(1);
@@ -36,13 +31,6 @@ test('1.5 feet contains 1 full feet', () => {
 //feet => inch only - passed
 test('1.5 feet contains 6 inches', () => {
   expect(feetToIn2(1.5)).toBe(6);
-});
-
-//left off here
-
-//meter => ft and inches - passed                                           TO BE REPLACED
-test('.5334 meter is equal to 1 feet and 9 inches', () => {
-  expect(meterToFtIn(.5334)).toStrictEqual([1,9]);
 });
 
 //meter => ft only - passed
